@@ -1,0 +1,17 @@
+<p><span class="badge badge-primary">{{num + 1}}</span> {{item.desc}}</p>
+
+<dl class="row">
+  <dd class="form-check col-sm-3" *ngFor="let option of item.options; let i = index">
+
+    <input class="form-check-input" type="radio" name="{{'alternatives' + num}}" id="{{num + '_' + i}}"
+      value="{{option.isCorrect}}">
+
+    <label class="form-check-label" for="{{num + '_' + i}}">
+      <span class="badge badge-secondary">{{i + 1}} </span>
+      {{option.desc}}
+      <img src="{{option.linkToImage}}" *ngIf="option.linkToImage" />
+
+    </label>
+  </dd>
+</dl>
+<hr>
