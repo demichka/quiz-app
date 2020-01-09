@@ -1,7 +1,16 @@
-<section class="questions-row">
-  <app-question [ngClass]="(i !== show) ? 'hideMe' : ''" *ngFor="let questionEl of questions; let i = index"
-    [item]="questionEl" [num]="i"></app-question>
+<section *ngIf="!finished">
+  <div class="questions-row">
+
+    <app-question [ngClass]="(i !== show) ? 'hideMe' : ''" *ngFor="let questionEl of questions; let i = index"
+      [item]="questionEl" [num]="i"
+      (sendAnswerEvent)="recieveAnswer($event)">
+    </app-question>
+  </div>
+
+  <button class="btn btn-primary"
+    (click)="onBtnNext()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
 </section>
 
-<button class="btn btn-primary"
-  (click)="nextQuestion()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
+<section *ngIf="finished">
+  <h2>finished</h2>
+</section>
