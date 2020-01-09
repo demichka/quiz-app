@@ -21,8 +21,16 @@ export class Question {
         this.options = this.createOptions(options);
     }
 
+    shuffleOptions(data: Option[]) {
+        for (let i = data.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [data[i], data[j]] = [data[j], data[i]];
+        }
+        return data;
+    }
+
     createOptions(options): Option[] {
-        return options.map(
+        let result = options.map(
             option =>
                 new Option(
                     option["desc"],
@@ -30,5 +38,6 @@ export class Question {
                     option["isCorrect"]
                 )
         );
+        return this.shuffleOptions(result);
     }
 }

@@ -337,8 +337,17 @@ export class QuestionsService {
         );
     }
 
+    shuffleQuestions(data: Question[]) {
+        for (let i = data.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [data[i], data[j]] = [data[j], data[i]];
+        }
+        return data;
+    }
+
     getQuestions() {
-        return this.createQuestionList(data);
+        let questions = this.createQuestionList(data);
+        return this.shuffleQuestions(questions).slice(0, 10);
     }
 
     constructor(private http: HttpClient) {}
