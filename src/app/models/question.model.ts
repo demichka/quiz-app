@@ -21,6 +21,7 @@ export class Question {
         this.options = this.createOptions(options);
     }
 
+    //mix options to put them in another order
     shuffleOptions(data: Option[]) {
         for (let i = data.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -29,6 +30,7 @@ export class Question {
         return data;
     }
 
+    //create options objects according to Option model to use their properties further
     createOptions(options): Option[] {
         let result = options.map(
             option =>

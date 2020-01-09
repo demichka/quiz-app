@@ -328,16 +328,30 @@ const data = [
 @Injectable({
     providedIn: "root"
 })
+
+//this service is responsible to get array with questions and create array with objects Question
+//it is used by question-list component, which gets array of Question objects
 export class QuestionsService {
+    private selectedQuestions: Object[] = [];
     private questionsList: Question[] = [];
 
-    createQuestionList(items: object[]): Question[] {
-        return items.map(
-            item => new Question(item["id"], item["desc"], item["options"])
-        );
+    //First, create array of indices, mix them and choose 10 values to select questions which have index equals chosen value
+    createIndicesToSelect(data: Object[]): Number[] {
+        for (var indices = [], i = 0; i < data.length; ++i) indices[i] = i;
+        indices = this.shuffle(indices);
+        return indices.slice(0, 10);
     }
 
-    shuffleQuestions(data: Question[]) {
+    //select 10 questions from data array
+    selectQuestions(data: Object[], indices: Number[]) {
+        this.selectedQuestions = data.filter(
+            (element, index) => indices.indexOf(index) !== -1
+        );
+        this.selectedQuestions = this.shuffle(this.selectedQuestions);
+    }
+
+    //function to mix array (with indices or questions)
+    shuffle(data: Object[]): Object[] {
         for (let i = data.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [data[i], data[j]] = [data[j], data[i]];
@@ -345,10 +359,21 @@ export class QuestionsService {
         return data;
     }
 
-    getQuestions() {
-        let questions = this.createQuestionList(data);
-        return this.shuffleQuestions(questions).slice(0, 10);
+    //For every element of fetched data we create Question object
+    createQuestionList(items: object[]): Question[] {
+        return items.map(
+            item => new Question(item["id"], item["desc"], item["options"])
+        );
     }
 
-    constructor(private http: HttpClient) {}
+    //this method is used by question-list data to get 10 selected and mixed questions
+    getQuestions() {
+        return this.questionsList;
+    }
+
+    constructor(private http: HttpClient) {
+        const indices = this.createIndicesToSelect(data);
+        this.selectQuestions(data, indices);
+        this.questionsList = this.createQuestionList(this.selectedQuestions);
+    }
 }
