@@ -18,9 +18,9 @@ export class Question {
         public desc: string,
         public options: Option[]
     ) {
-        this.id = id;
-        this.desc = desc;
-        this.options = this.createOptions(options);
+        this.id = id || null;
+        this.desc = desc || null;
+        this.options = this.createOptions(options) || null;
     }
 
     //mix options to put them in another order
@@ -34,15 +34,17 @@ export class Question {
 
     //create options objects according to Option model to use their properties further
     createOptions(options): Option[] {
-        let result = options.map(
-            option =>
-                new Option(
-                    option["desc"],
-                    option["linkToImage"],
-                    option["isCorrect"],
-                    option["isHidden"]
-                )
-        );
-        return this.shuffleOptions(result);
+        if (options) {
+            let result = options.map(
+                option =>
+                    new Option(
+                        option["desc"],
+                        option["linkToImage"],
+                        option["isCorrect"],
+                        option["isHidden"]
+                    )
+            );
+            return this.shuffleOptions(result);
+        }
     }
 }

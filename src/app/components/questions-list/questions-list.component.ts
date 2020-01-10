@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 import { Question } from "src/app/models/question.model";
 import { QuestionsService } from "src/app/services/questions.service";
 import { Answer } from "src/app/models/answer.model";

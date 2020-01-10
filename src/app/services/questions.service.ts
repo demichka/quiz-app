@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Question } from "../models/question.model";
 
 const data = [
@@ -377,7 +376,7 @@ export class QuestionsService {
         this.questionsList = this.createQuestionList(this.selectedQuestions);
     }
 
-    constructor(private http: HttpClient) {
+    constructor() {
         this.resetQuestions();
     }
 }
