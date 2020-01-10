@@ -11,9 +11,9 @@
 
   <div class="btns-group">
     <button class="btn btn-outline-success"
-      (click)="timer.addMoreTime($event, 10)">Add 10 sec</button>
+      (click)="timer.addMoreTime($event, 10)">+ 10 sec</button>
     <button class="btn btn-outline-success"
-      (click)="hideIncorrectOptions($event)">Hide 2 Incorrects</button>
+      (click)="hideIncorrectOptions($event)">50/50</button>
     <button class="btn btn-primary"
       (click)="timer.stopTimer()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
   </div>

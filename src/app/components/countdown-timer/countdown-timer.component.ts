@@ -1,7 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
-import { timer } from "rxjs";
-import { takeWhile, tap } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
 import { TimerService } from "src/app/services/timer.service";
 
 @Component({
