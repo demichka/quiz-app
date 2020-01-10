@@ -371,9 +371,13 @@ export class QuestionsService {
         return this.questionsList;
     }
 
-    constructor(private http: HttpClient) {
+    resetQuestions() {
         const indices = this.createIndicesToSelect(data);
         this.selectQuestions(data, indices);
         this.questionsList = this.createQuestionList(this.selectedQuestions);
+    }
+
+    constructor(private http: HttpClient) {
+        this.resetQuestions();
     }
 }

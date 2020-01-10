@@ -1,8 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1>Welcome to quiz!</h1>
-      <app-questions-list></app-questions-list>
+      <h1 class="my-4">{{!this.launchedQuiz ? 'Welcome to quiz!' : ''}}</h1>
+
+      <div class="d-flex justify-content-center justify-content-center" *ngIf="!launchedQuiz" style="height: 50vh;">
+
+        <button class="btn btn-primary align-self-center" style="height: 60px;"
+          (click)="launchQuiz()">
+          Start quiz!
+        </button>
+      </div>
+      <app-questions-list *ngIf="launchedQuiz"></app-questions-list>
     </div>
   </div>
 </div>

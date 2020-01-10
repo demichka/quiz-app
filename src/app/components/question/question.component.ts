@@ -10,7 +10,6 @@ export class QuestionComponent implements OnInit {
     @Input() item: Question;
     @Input() num: Number;
     @Output() sendAnswerEvent = new EventEmitter<Object>();
-    result;
 
     constructor() {}
 
@@ -18,9 +17,8 @@ export class QuestionComponent implements OnInit {
 
     //if user chose an answer by clicking on radio button QuestionComponent send this result with user's choice to its parent component via event emitter
     radioChange($event) {
-        this.result = event.target;
         this.sendAnswerEvent.emit({
-            choice: this.result.value
+            choice: $event.target.value === "true" ? true : false
         });
     }
 }

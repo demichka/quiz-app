@@ -1,3 +1,6 @@
+<h2 class="my-4 text-center">
+  {{this.finished ? 'Thank you for taking our quiz!' : 'Please, answer the questions below:'}}</h2>
+
 <section *ngIf="!finished">
 
 
@@ -26,5 +29,10 @@
 </section>
 
 <section *ngIf="finished">
-  <h2>finished</h2>
+  <h2 class="text-center my-5">Check your summary:</h2>
+  <app-statistics [answers]="answers"></app-statistics>
+  <div class="col-12 mt-4">
+    <button class="btn btn-primary d-block mx-auto"
+      (click)="startQuiz()">Start quiz again</button>
+  </div>
 </section>

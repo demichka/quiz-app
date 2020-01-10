@@ -43,6 +43,15 @@ export class QuestionsListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.startQuiz();
+    }
+
+    startQuiz() {
+        this.finished = false;
+        this.answers = [];
+        this.remainingTime = 0;
+        this.show = 0;
+        this.questionService.resetQuestions();
         this.questions = this.questionService.getQuestions();
     }
 
@@ -61,9 +70,8 @@ export class QuestionsListComponent implements OnInit {
             this.userResponse ? false : true,
             this.remainingTime
         );
+        this.answers.push(this.answer);
         if (this.show < this.questions.length - 1) {
-            this.answers.push(this.answer);
-            console.log(this.answers);
             this.show++;
             this.userResponse = null;
             this.remainingTime = 0;
