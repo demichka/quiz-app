@@ -1,4 +1,6 @@
 <section *ngIf="!finished">
+
+
   <div class="questions-row">
 
     <app-question [ngClass]="(i !== show) ? 'hideMe' : ''" *ngFor="let questionEl of questions; let i = index"
@@ -8,7 +10,12 @@
   </div>
 
   <button class="btn btn-primary"
-    (click)="onBtnNext()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
+    (click)="timer.stopTimer()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
+  <div class="row">
+    <div class="col-3">
+      <app-countdown-timer #timer></app-countdown-timer>
+    </div>
+  </div>
 </section>
 
 <section *ngIf="finished">

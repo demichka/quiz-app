@@ -6,9 +6,10 @@ import { AppComponent } from "./app.component";
 import { QuestionsListComponent } from "./components/questions-list/questions-list.component";
 import { QuestionComponent } from "./components/question/question.component";
 import { HttpClientModule } from "@angular/common/http";
+import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 
 @NgModule({
-    declarations: [AppComponent, QuestionsListComponent, QuestionComponent],
+    declarations: [AppComponent, QuestionsListComponent, QuestionComponent, CountdownTimerComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent]
