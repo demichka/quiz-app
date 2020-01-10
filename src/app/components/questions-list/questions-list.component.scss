@@ -1,0 +1,17 @@
+.hideMe {
+    display: none;
+}
+
+.questions-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 250px;
+}
+
+.btns-group {
+    display: flex;
+    .btn {
+        margin-right: 5px;
+    }
+}
