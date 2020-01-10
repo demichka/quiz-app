@@ -1,0 +1,9 @@
+p {
+    margin-top: 15px;
+    &.warning {
+        span {
+            font-weight: 700;
+            color: #ff0000;
+        }
+    }
+}

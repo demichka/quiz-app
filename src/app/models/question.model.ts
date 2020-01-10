@@ -2,11 +2,13 @@ class Option {
     constructor(
         public desc: string,
         public linkToImage: string,
-        public isCorrect: boolean
+        public isCorrect: boolean,
+        public isHidden?: boolean
     ) {
         this.desc = desc;
         this.linkToImage = linkToImage;
         this.isCorrect = isCorrect;
+        this.isHidden = isHidden;
     }
 }
 
@@ -37,7 +39,8 @@ export class Question {
                 new Option(
                     option["desc"],
                     option["linkToImage"],
-                    option["isCorrect"]
+                    option["isCorrect"],
+                    option["isHidden"]
                 )
         );
         return this.shuffleOptions(result);

@@ -22,7 +22,7 @@ export class CountdownTimerComponent implements OnInit {
         this.clearTimer();
         this.interval = window.setInterval(() => {
             this.remainingTime -= 1;
-            if (this.remainingTime < 0) {
+            if (this.remainingTime < 1) {
                 this.remainingTime = 15;
                 this.timerService.setTimeOver();
             }
@@ -40,7 +40,9 @@ export class CountdownTimerComponent implements OnInit {
         this.startTimer();
     }
 
-    addMoreTime(time) {
+    //func to add more time and to disable button
+    addMoreTime($event, time: number) {
         this.remainingTime += time;
+        $event.target.setAttribute("disabled", "disabled");
     }
 }

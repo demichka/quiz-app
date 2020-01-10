@@ -72,4 +72,16 @@ export class QuestionsListComponent implements OnInit {
             this.finished = !this.finished;
         }
     }
+
+    hideIncorrectOptions($event) {
+        let current = this.questions[this.show];
+        let wrongs = current.options.filter(el => !el.isCorrect);
+        for (let i = 0; i < 2; i++) {
+            if (!wrongs[i].isCorrect) {
+                wrongs[i].isHidden = true;
+            }
+        }
+        let btn = $event.target;
+        btn.setAttribute("disabled", "disabled");
+    }
 }

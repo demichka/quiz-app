@@ -1,1 +1,1 @@
-<p>{{remainingTime}}</p>
+<p [ngClass]="(remainingTime <= 5) ? 'warning' : ''">Remaining time: <span>{{remainingTime}}</span></p>

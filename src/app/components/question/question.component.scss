@@ -18,6 +18,13 @@
         }
     }
 
+    input:disabled + label {
+        visibility: hidden;
+        .badge {
+            visibility: hidden;
+        }
+    }
+
     img {
         max-width: 85%;
         float: right;
