@@ -1,27 +1,23 @@
 # QuizApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+## Welcome to Quiz App
 
-## Development server
+Run `npm install` in root folder
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Test applications with following steps:
+1. Click on Start Quiz button. Quiz starts, first question is shown, countdown timer starts from 15.
+2. Click on question's alternative that is supposed to be correct, then click on Next, next question is shown
+3. Click on question's alternative that is supposed to be incorrect (don't worry, quiz is rather simple). Click on Next button, next question is shown
+4. Click on Next button without choice, next question is shown
+5. Wait for 15 seconds, countdown finished, next question is shown
+6. Click on 50/50 button, 2 incorrect alternatives are hidden. 50/50 button is disabled. Click on Next button, next question is shown
+7. Click on +10 sec button, countdown timer will be increased with 10 seconds. +10 sec button is disabled. Click on Next button, next question is shown
+8. Make your choice, Click on Next button, next question is shown
+9. Continue step 8 to the last (10) question, button Next changes to Finish
+10. Click on Finish button, quiz is finished, statistics view is shown. It contains statistics list and button Start quiz again.
+11. Check statistics. It must contain at least 1 correct (according to step 2), at least 1 incorrect (according to step 3), at least 2 missed (according to steps 4, 5). Average time shows average time per 1 question including missed
+12. Click on Start quiz again and test the app one more time. Question's list is reset.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Unit tests are poorly represented in this version, but run  `ng test` to execute the unit tests to check them.
