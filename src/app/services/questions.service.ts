@@ -336,6 +336,19 @@ export class QuestionsService {
 
     //First, create array of indices, mix them and choose 10 values to select questions which have index equals chosen value
     createIndicesToSelect(data: Object[]): Number[] {
+        if (data == null) {
+            console.error("data is null");
+            throw "data is null";
+        }
+
+        if (data.length === 0) {
+            throw "data is empty";
+        }
+
+        if (data.length < 10) {
+            throw "not enough questions to show";
+        }
+
         for (var indices = [], i = 0; i < data.length; ++i) indices[i] = i;
         indices = this.shuffle(indices);
         return indices.slice(0, 10);
