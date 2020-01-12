@@ -8,8 +8,7 @@ import { Subscription } from "rxjs";
 @Component({
     selector: "app-questions-list",
     templateUrl: "./questions-list.component.html",
-    styleUrls: ["./questions-list.component.scss"],
-    providers: [QuestionsService]
+    styleUrls: ["./questions-list.component.scss"]
 })
 export class QuestionsListComponent implements OnInit {
     questions: Question[];
