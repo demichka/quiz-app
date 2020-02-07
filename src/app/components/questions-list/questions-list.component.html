@@ -5,10 +5,8 @@
 
 
   <div class="questions-row">
-
-    <app-question [ngClass]="(i !== show) ? 'hideMe' : ''" *ngFor="let questionEl of questions; let i = index"
-      [item]="questionEl" [num]="i"
-      (sendAnswerEvent)="recieveAnswer($event)">
+    <app-question
+      [item]="questions[shownQuestion]" [num]="shownQuestion">
     </app-question>
   </div>
 
@@ -18,7 +16,7 @@
     <button class="btn btn-outline-success"
       (click)="hideIncorrectOptions($event)">50/50</button>
     <button class="btn btn-primary"
-      (click)="timer.stopTimer()">{{this.show === questions.length - 1 ? 'Finish' : 'Next'}}</button>
+      (click)="timer.stopTimer()">{{this.shownQuestion === questions.length - 1 ? 'Finish' : 'Next'}}</button>
   </div>
 
   <div class="row">

@@ -7,10 +7,10 @@ import { Question } from "src/app/models/question.model";
     styleUrls: ["./question.component.scss"]
 })
 export class QuestionComponent implements OnInit {
-    @Input() item: Question = new Question(null, null, null);
+    @Input() item: Question = new Question(null, null, null, null);
     @Input() num: Number;
-    @Output() sendAnswerEvent = new EventEmitter<Object>();
     loading: boolean = true;
+    choice: boolean = undefined;
 
     constructor() {}
 
@@ -20,10 +20,13 @@ export class QuestionComponent implements OnInit {
         }
     }
 
-    //if user chose an answer by clicking on radio button QuestionComponent send this result with user's choice to its parent component via event emitter
+    //if user chose an answer by clicking on radio button parent component watch this.choice via @ViewChild decorator
     radioChange($event) {
-        this.sendAnswerEvent.emit({
-            choice: $event.target.value === "true" ? true : false
-        });
+        this.choice =
+            $event.target.value === this.item.correctOption ? true : false;
+    }
+
+    resetChoice() {
+        this.choice = undefined;
     }
 }

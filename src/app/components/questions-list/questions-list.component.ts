@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Question } from "src/app/models/question.model";
 import { QuestionsService } from "src/app/services/questions.service";
 import { Answer } from "src/app/models/answer.model";
 import { TimerService } from "src/app/services/timer.service";
 import { Subscription } from "rxjs";
+import { QuestionComponent } from "../question/question.component";
 
 @Component({
     selector: "app-questions-list",
@@ -13,13 +14,14 @@ import { Subscription } from "rxjs";
 export class QuestionsListComponent implements OnInit {
     questions: Question[];
     answers: Answer[] = [];
-    show: number = 0;
+    shownQuestion: number = 0;
     finished: boolean = false;
-    answer: Answer;
-    userResponse;
     timeOverSubscription: Subscription;
     remainingTimeSubscription: Subscription;
     remainingTime: number = 0;
+    btnHideCorrectOptionsEnable: boolean = true;
+    @ViewChild(QuestionComponent, { static: false })
+    private activeQuestion: QuestionComponent;
 
     constructor(
         private questionService: QuestionsService,
@@ -49,46 +51,47 @@ export class QuestionsListComponent implements OnInit {
         this.finished = false;
         this.answers = [];
         this.remainingTime = 0;
-        this.show = 0;
+        this.shownQuestion = 0;
         this.questionService.resetQuestions();
         this.questions = this.questionService.getQuestions();
-    }
-
-    //func to save user's response fwhich is passed by child component QuestionComponent via Event emmiter
-    recieveAnswer($event) {
-        this.userResponse = $event;
     }
 
     //func to create Answer obj with user's response in case if user chose answer or marked as missed
     //if the current question is last this button has value "Finish", on click the screen with result is shown
 
     moveToNext() {
-        this.answer = new Answer(
-            this.questions[this.show],
-            this.userResponse ? this.userResponse.choice : false,
-            this.userResponse ? false : true,
+        let answer = new Answer(
+            this.questions[this.shownQuestion],
+            this.activeQuestion.choice ? this.activeQuestion.choice : false,
+            this.activeQuestion.choice !== undefined ? false : true,
             this.remainingTime
         );
-        this.answers.push(this.answer);
-        if (this.show < this.questions.length - 1) {
-            this.show++;
-            this.userResponse = null;
+        this.answers.push(answer);
+        this.activeQuestion.resetChoice();
+        if (this.shownQuestion < this.questions.length - 1) {
+            this.shownQuestion++;
             this.remainingTime = 0;
         } else {
-            this.userResponse = null;
             this.finished = !this.finished;
         }
     }
 
     hideIncorrectOptions($event) {
-        let current = this.questions[this.show];
+        if (!this.btnHideCorrectOptionsEnable) {
+            console.log("Nice attempt!");
+            return;
+        }
+        let current = this.questions[this.shownQuestion];
         let wrongs = current.options.filter(el => !el.isCorrect);
         for (let i = 0; i < 2; i++) {
-            if (!wrongs[i].isCorrect) {
-                wrongs[i].isHidden = true;
-            }
+            wrongs[i].isHidden = true;
         }
         let btn = $event.target;
+        this.btnHideCorrectOptionsEnable = false;
+        this.setHintBtnDisabled(btn);
+    }
+
+    setHintBtnDisabled(btn) {
         btn.setAttribute("disabled", "disabled");
     }
 }

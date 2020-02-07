@@ -10,6 +10,7 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
     constructor(private timerService: TimerService) {}
     remainingTime: number = 15;
     interval: number = 0;
+    btnAddMoreTimeEnable: boolean = true;
 
     ngOnInit() {
         this.startTimer();
@@ -43,7 +44,16 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
 
     //func to add more time and to disable button
     addMoreTime($event, time: number) {
+        if (!this.btnAddMoreTimeEnable) {
+            console.log("Nice attempt!");
+            return;
+        }
         this.remainingTime += time;
-        $event.target.setAttribute("disabled", "disabled");
+        this.btnAddMoreTimeEnable = false;
+        this.setHintBtnDisabled($event.target);
+    }
+
+    setHintBtnDisabled(btn) {
+        btn.setAttribute("disabled", "disabled");
     }
 }
