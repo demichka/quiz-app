@@ -14,6 +14,8 @@ class Option {
     }
 }
 
+export default Option;
+
 export class Question {
     constructor(
         public id: string,
@@ -56,7 +58,10 @@ export class Question {
     setCorrectOption(options: Option[]) {
         if (options) {
             let correctOption = options.find(option => option.isCorrect);
-            return correctOption.id;
+            if (correctOption) {
+                return correctOption.id;
+            }
+            throw "Question has no correct answer";
         }
     }
 }

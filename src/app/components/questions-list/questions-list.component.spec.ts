@@ -5,7 +5,7 @@ import { QuestionComponent } from "../question/question.component";
 import { CountdownTimerComponent } from "../countdown-timer/countdown-timer.component";
 import { StatisticsComponent } from "../statistics/statistics.component";
 import { QuestionsService } from "src/app/services/questions.service";
-import { Question } from "src/app/models/question.model";
+import Option, { Question } from "src/app/models/question.model";
 
 describe("QuestionsListComponent", () => {
     let component: QuestionsListComponent;
@@ -47,7 +47,7 @@ describe("QuestionsListComponent", () => {
         expect(component.finished).toBeFalsy();
         expect(component.answers.length).toEqual(0);
         expect(component.remainingTime).toEqual(0);
-        expect(component.show).toEqual(0);
+        expect(component.shownQuestion).toEqual(0);
     });
 
     it("should call questionsService.resetQuestions()", () => {
@@ -57,7 +57,9 @@ describe("QuestionsListComponent", () => {
     });
 
     it("should call questionsService.getquestions()", () => {
-        const expectedQuestions = [new Question("1", "", [])];
+        const expectedQuestions = [
+            new Question("1", "", [new Option("1", "", "", true)], "")
+        ];
         spyOn(questionsService, "getQuestions").and.returnValue(
             expectedQuestions
         );
