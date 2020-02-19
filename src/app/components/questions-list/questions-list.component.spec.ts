@@ -6,6 +6,12 @@ import { CountdownTimerComponent } from "../countdown-timer/countdown-timer.comp
 import { StatisticsComponent } from "../statistics/statistics.component";
 import { QuestionsService } from "src/app/services/questions.service";
 import Option, { Question } from "src/app/models/question.model";
+import {
+    HttpClientTestingModule,
+    HttpTestingController
+} from "@angular/common/http/testing";
+
+import { HttpClientModule } from "@angular/common/http";
 
 describe("QuestionsListComponent", () => {
     let component: QuestionsListComponent;
@@ -21,7 +27,8 @@ describe("QuestionsListComponent", () => {
                 CountdownTimerComponent,
                 StatisticsComponent
             ],
-            providers: [QuestionsService]
+            providers: [QuestionsService],
+            imports: [HttpClientTestingModule, HttpClientModule]
         });
     });
 
@@ -43,28 +50,10 @@ describe("QuestionsListComponent", () => {
     });
 
     it("should reset state on startQuiz", () => {
-        component.startQuiz();
+        component.resetQuiz();
         expect(component.finished).toBeFalsy();
         expect(component.answers.length).toEqual(0);
         expect(component.remainingTime).toEqual(0);
         expect(component.shownQuestion).toEqual(0);
-    });
-
-    it("should call questionsService.resetQuestions()", () => {
-        spyOn(questionsService, "resetQuestions");
-        component.startQuiz();
-        expect(questionsService.resetQuestions).toHaveBeenCalledTimes(1);
-    });
-
-    it("should call questionsService.getquestions()", () => {
-        const expectedQuestions = [
-            new Question("1", "", [new Option("1", "", "", true)], "")
-        ];
-        spyOn(questionsService, "getQuestions").and.returnValue(
-            expectedQuestions
-        );
-        component.startQuiz();
-        expect(questionsService.getQuestions).toHaveBeenCalledTimes(1);
-        expect(component.questions).toEqual(expectedQuestions);
     });
 });

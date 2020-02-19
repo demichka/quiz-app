@@ -2,10 +2,21 @@ import { TestBed } from "@angular/core/testing";
 
 import { QuestionsService } from "./questions.service";
 
+import {
+    HttpClientTestingModule,
+    HttpTestingController
+} from "@angular/common/http/testing";
+
+import { HttpClientModule } from "@angular/common/http";
+
 describe("QuestionsService", () => {
     let service: QuestionsService;
     const arrayTenObjects = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
-    beforeEach(() => TestBed.configureTestingModule({}));
+    beforeEach(() =>
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule, HttpClientModule]
+        })
+    );
     beforeEach(() => (service = TestBed.get(QuestionsService)));
 
     it("should be created", () => {

@@ -47,27 +47,41 @@ export class QuestionsListComponent implements OnInit {
         this.startQuiz();
     }
 
-    startQuiz() {
+    resetQuiz() {
         this.finished = false;
         this.answers = [];
         this.remainingTime = 0;
         this.shownQuestion = 0;
-        this.questionService.resetQuestions();
-        this.questions = this.questionService.getQuestions();
+    }
+
+    startQuiz() {
+        this.resetQuiz();
+        this.questionService.getData().subscribe(data => {
+            this.questions = data;
+        });
     }
 
     //func to create Answer obj with user's response in case if user chose answer or marked as missed
     //if the current question is last this button has value "Finish", on click the screen with result is shown
 
-    moveToNext() {
-        let answer = new Answer(
-            this.questions[this.shownQuestion],
-            this.activeQuestion.choice ? this.activeQuestion.choice : false,
-            this.activeQuestion.choice !== undefined ? false : true,
-            this.remainingTime
+    saveAnswertoArray() {
+        this.answers.push(
+            new Answer(
+                this.questions[this.shownQuestion],
+                this.activeQuestion.choice == 1
+                    ? true
+                    : this.activeQuestion.choice == 0
+                    ? false
+                    : false,
+                this.activeQuestion.choice !== -1 ? false : true,
+                this.remainingTime
+            )
         );
-        this.answers.push(answer);
         this.activeQuestion.resetChoice();
+    }
+
+    moveToNext() {
+        this.saveAnswertoArray();
         if (this.shownQuestion < this.questions.length - 1) {
             this.shownQuestion++;
             this.remainingTime = 0;

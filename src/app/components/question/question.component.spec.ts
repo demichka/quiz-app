@@ -20,31 +20,51 @@ describe("QuestionComponent", () => {
     });
 
     it("should create", () => {
+        component.item = new Question(
+            "1",
+            "",
+            [new Option("1", "", "", true)],
+            ""
+        );
+        component.item.options = [new Option("1", "", "", true)];
         expect(component).toBeTruthy();
     });
 
     it("should have an item", () => {
-        const item = new Question("1", "", [new Option("1", "", "", true)], "");
-        component.item = item;
         component.ngOnInit();
-        expect(component.loading).toBeFalsy;
+        component.item = new Question(
+            "1",
+            "",
+            [new Option("1", "", "", true)],
+            ""
+        );
+        component.item.options = [new Option("1", "", "", true)];
+
+        expect(component.item).toBeDefined;
     });
 
-    it("should be loading status if no item", () => {
+    it("should have choice -1 onInit", () => {
+        component.item = new Question(
+            "1",
+            "",
+            [new Option("1", "", "", true)],
+            ""
+        );
+        component.item.options = [new Option("1", "", "", true)];
         component.ngOnInit();
-        expect(component.loading).toBeTruthy;
+        expect(component.choice).toEqual(-1);
     });
 
-    it("should have choice undefinded onInit", () => {
-        component.ngOnInit();
-        expect(component.choice).toBeUndefined;
-    });
-
-    it("should have choice undefined after resetChoice", () => {
-        const item = new Question("1", "", [new Option("1", "", "", true)], "");
-        component.item = item;
-        component.choice = true;
+    it("should have choice equals -1 after resetChoice", () => {
+        component.item = new Question(
+            "1",
+            "",
+            [new Option("1", "", "", true)],
+            ""
+        );
+        component.item.options = [new Option("1", "", "", true)];
+        component.choice = 1;
         component.resetChoice();
-        expect(component.choice).toBeUndefined;
+        expect(component.choice).toEqual(-1);
     });
 });

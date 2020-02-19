@@ -7,26 +7,20 @@ import { Question } from "src/app/models/question.model";
     styleUrls: ["./question.component.scss"]
 })
 export class QuestionComponent implements OnInit {
-    @Input() item: Question = new Question(null, null, null, null);
+    @Input() item: Question;
     @Input() num: Number;
-    loading: boolean = true;
-    choice: boolean = undefined;
+    choice: number = -1;
 
     constructor() {}
 
-    ngOnInit() {
-        if (this.item.id !== null) {
-            this.loading = false;
-        }
-    }
+    ngOnInit() {}
 
     //if user chose an answer by clicking on radio button parent component watch this.choice via @ViewChild decorator
     radioChange($event) {
-        this.choice =
-            $event.target.value === this.item.correctOption ? true : false;
+        this.choice = $event.target.value === this.item.correctOption ? 1 : 0;
     }
 
     resetChoice() {
-        this.choice = undefined;
+        this.choice = -1;
     }
 }
